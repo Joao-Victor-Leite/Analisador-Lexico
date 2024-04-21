@@ -246,7 +246,7 @@ if __name__ == "__main__":
                     else:
                         estado = 85
                         msg_erro = f"Erro linha {linha} coluna {coluna}"
-                case 20: #verificar
+                case 20: #20 -> [21,22]
                     if token in tk.TOKEN_ALFABETO_MIN:
                         estado = 21
                         lexema += token
@@ -381,7 +381,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_IGUAL"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
-                case 42: #verificar
+                case 42: #palavras reservadas
                     if lexema == tk.tk_rotina:
                         #estado = 77
                         token_tipo = "TK_ROTINA"
