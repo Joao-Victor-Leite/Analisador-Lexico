@@ -252,12 +252,14 @@ if __name__ == "__main__":
                         lexema += token
                     else:
                         estado = 22
+                        arquivo.seek(posicao_atual - 1)
                 case 21: #21 -> [20,22]
                     if token in tk.TOKEN_ALFABETO_MAX:
                         estado = 20
                         lexema += token
                     else:
                         estado = 22
+                        arquivo.seek(posicao_atual - 1)
                 case 22: #identificador
                     token_tipo = "TK_ID"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo, lexema))
