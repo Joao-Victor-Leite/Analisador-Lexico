@@ -40,6 +40,9 @@ if __name__ == "__main__":
                 print("Fim do arquivo")
                 break
 
+            print(f"Token: {token}, Estado: {estado}, Posicao: {posicao_atual}")
+            print(f"Token: {token}, Linha: {linha}, Coluna: {coluna}\n")
+
             #posicao_atual += 1
 
             match estado:
@@ -83,7 +86,7 @@ if __name__ == "__main__":
                         lexema += token
                     elif token == "#":
                         estado = 64
-                    elif token == " " or token == "\n":
+                    elif token == " " or token == "\n" or token == "\t":
                         ...
                     elif token == ".":
                         estado = 68
@@ -282,6 +285,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_ABR_PARENTESES"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    arquivo.seek(posicao_atual - 1)
                 case 26: #menos
                     token_tipo = "TK_MENOS"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
@@ -356,6 +360,7 @@ if __name__ == "__main__":
                         lexema += token
                     else:
                         estado = 42
+                        arquivo.seek(posicao_atual - 1)
                 case 38: #menor igual
                     token_tipo = "TK_MENOR_IGUAL"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
@@ -441,7 +446,7 @@ if __name__ == "__main__":
                 case 43: #43 -> [43,44,85]
                     if token == '"':
                         estado = 44
-                    if token == "\n":
+                    elif token == "\n":
                         estado = 85
                     else:
                         estado = 43
@@ -451,6 +456,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_CADEIA"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    arquivo.seek(posicao_atual - 1)
                 case 45: #45 -> [46,47] 
                     if token == "=":
                         estado = 46
@@ -524,6 +530,7 @@ if __name__ == "__main__":
                         lexema += token
                     else:
                         estado = 56
+                        arquivo.seek(posicao_atual - 1)
                 case 56: #float
                     token_tipo = "TK_FLOAT"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo, lexema))
