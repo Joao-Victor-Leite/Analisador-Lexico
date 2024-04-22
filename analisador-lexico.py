@@ -43,8 +43,6 @@ if __name__ == "__main__":
             print(f"Token: {token}, Estado: {estado}, Posicao: {posicao_atual}")
             print(f"Token: {token}, Linha: {linha}, Coluna: {coluna}\n")
 
-            #posicao_atual += 1
-
             match estado:
                 case 0: #0 -> [1,19,23,24,25,26,27,28,29,30,31,32,33,43,45,48,58,64,68,85] 
                     if token in tk.TOKEN_NUM:
@@ -105,6 +103,7 @@ if __name__ == "__main__":
                         lexema += token
                     else:
                         estado = 75
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 2: #2 -> [3,4,49,51,75]
                     if token in tk.TOKEN_NUM:
                         estado = 49
@@ -204,8 +203,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 15: #15 -> [16,85]
                     if token in tk.TOKEN_NUM:
                         estado = 16
@@ -234,8 +232,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 19: #19 -> [20,37,85]
                     if token in tk.TOKEN_ALFABETO_MAX:
                         estado = 20
@@ -252,14 +249,14 @@ if __name__ == "__main__":
                         lexema += token
                     else:
                         estado = 22
-                        arquivo.seek(posicao_atual - 1)
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 21: #21 -> [20,22]
                     if token in tk.TOKEN_ALFABETO_MAX:
                         estado = 20
                         lexema += token
                     else:
                         estado = 22
-                        arquivo.seek(posicao_atual - 1)
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 22: #identificador
                     token_tipo = "TK_ID"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -267,69 +264,77 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 23: #dois pontos
                     token_tipo = "TK_DOIS_PONTOS"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_DOIS_PONTOS"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 24: #fecha parenteses
                     token_tipo = "TK_FEC_PARENTESES"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_FEC_PARENTESES"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 25: #abre parenteses
                     token_tipo = "TK_ABR_PARENTESES"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_ABR_PARENTESES"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
-                    arquivo.seek(posicao_atual - 1)
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 26: #menos
                     token_tipo = "TK_MENOS"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_MENOS"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 27: #negacao
                     token_tipo = "TK_NEGACAO"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_NEGACAO"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 28: #mais
                     token_tipo = "TK_MAIS"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_MAIS"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 29: #multiplicacao
                     token_tipo = "TK_MULTIPLICACAO"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_MULTIPLICACAO"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 30: #divisao
                     token_tipo = "TK_DIVISAO"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_DIVISAO"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 31: #and
                     token_tipo = "TK_AND"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_AND"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 32: #or
                     token_tipo = "TK_OR"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_OR"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 33: #33 -> [34,35,36,62]
                     if token == ">":
                         estado = 34
@@ -339,48 +344,56 @@ if __name__ == "__main__":
                         estado = 62
                     else:
                         estado = 35
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 34: #diferente
                     token_tipo = "TK_DIFERENTE"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_DIFERENTE"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 35: #menor que
                     token_tipo = "TK_MENOR_QUE"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_MENOR_QUE"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 36: #36 -> [38,39]
                     if token == "=":
                         estado = 39
                     else:
                         estado = 38
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
+                    
                 case 37: #37 -> [37,42]
                     if token in tk.TOKEN_ALFABETO_MIN + "_":
                         estado = 37
                         lexema += token
                     else:
                         estado = 42
-                        arquivo.seek(posicao_atual - 1)
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 38: #menor igual
                     token_tipo = "TK_MENOR_IGUAL"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_MENOR_IGUAL"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 39: #atribuicao
                     token_tipo = "TK_ATRIBUICAO"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_ATRIBUICAO"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 40: #igual
                     token_tipo = "TK_IGUAL"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_IGUAL"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 42: #palavras reservadas
                     if lexema == tk.tk_rotina:
                         #estado = 77
@@ -443,8 +456,7 @@ if __name__ == "__main__":
                         msg_erro = f"Erro linha {linha} coluna {coluna}: palavra reservada inválida"
                     
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 43: #43 -> [43,44,85]
                     if token == '"':
                         estado = 44
@@ -458,7 +470,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_CADEIA"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
-                    arquivo.seek(posicao_atual - 1)
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 45: #45 -> [46,47] 
                     if token == "=":
                         estado = 46
@@ -470,12 +482,14 @@ if __name__ == "__main__":
                     tk.tokens["TK_MAIOR_IGUAL"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 47: #maior que
                     token_tipo = "TK_MAIOR_QUE"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo))
                     tk.tokens["TK_MAIOR_QUE"] += 1
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 48: #48 -> [40,85]
                     if token == "=":
                         estado = 40
@@ -532,7 +546,7 @@ if __name__ == "__main__":
                         lexema += token
                     else:
                         estado = 56
-                        arquivo.seek(posicao_atual - 1)
+                        coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 56: #float
                     token_tipo = "TK_FLOAT"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -540,8 +554,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 57: #float
                     token_tipo = "TK_FLOAT"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -549,8 +562,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 58: #58 -> [59,85]
                     if token == "x":
                         estado = 59
@@ -578,8 +590,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1 
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 62: #62 -> [63,85]
                     if token == "<":
                         estado = 63
@@ -628,8 +639,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 75: #int
                     token_tipo = "TK_INT"
                     tk_lista.write(funcoes.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -637,8 +647,7 @@ if __name__ == "__main__":
                     tk.tokens["TK_TOTAL"] += 1
                     estado = 0
                     lexema = ""
-                    arquivo.seek(posicao_atual - 1)
-                    coluna -= 1
+                    coluna = funcoes.volta_posicao(arquivo, coluna, posicao_atual)
                 case 76: #76 -> [75,76]
                     if token in tk.TOKEN_NUM:
                         estado = 76

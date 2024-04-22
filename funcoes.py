@@ -31,3 +31,19 @@ def gravar_lexema(linha: int, coluna: int, token_tipo: str, lexema: str = ''):
     """
     return f'\n|{linha:<5}|{coluna:<5}|{token_tipo:<20}|{lexema:<20}|\n' + \
     '''+-----+-----+--------------------+--------------------+'''
+
+def volta_posicao(arquivo, coluna: int, posicao_atual: int):
+    """
+    Move o ponteiro do arquivo de volta para uma posição anterior e ajusta o número da coluna.
+
+    Args:
+        arquivo: O objeto do arquivo.
+        coluna (int): O número da coluna atual.
+        posicao_atual (int): A posição atual do ponteiro do arquivo.
+
+    Returns:
+        int: O número da coluna ajustado.
+    """
+    arquivo.seek(posicao_atual - 1)
+    coluna -= 1
+    return coluna
