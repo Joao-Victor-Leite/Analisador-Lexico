@@ -14,7 +14,7 @@ if __name__ == "__main__":
                    '+-----+-----+--------------------+--------------------+'
                    ) 
     
-    arquivo = "ex1"
+    arquivo = "ex2"
     arquivo_erros = arquivo + "_erro"
 
     arquivo = f.gerador_extensao(arquivo, "cic")
@@ -36,17 +36,17 @@ if __name__ == "__main__":
 
     with open(arquivo, 'r') as arquivo, open(arquivo_erros, 'w') as arquivo_erros:
         linhas = arquivo.readlines()
-        for i in range(len(linhas)):
+        token_anterior = None
+        for indice_linha in range(len(linhas)):
             linha += 1
             coluna = 0
-            arquivo_erros.write(f"[{linha}]")
-            l = linhas[i]
-            j = 0
+            linha_atual = linhas[indice_linha]
+            arquivo_erros.write(f"[{indice_linha+1}]{linha_atual}")
+            indice_caractere = 0
             
-            while j < len(l):
-                token = l[j]
+            while indice_caractere < len(linha_atual):
+                token = linha_atual[indice_caractere]
                 coluna +=1
-                arquivo_erros.write(token)
 
                 if not token:
                     print("Fim do arquivo")
@@ -97,7 +97,7 @@ if __name__ == "__main__":
                         elif token == "#":
                             estado = 64
                         elif token == " " or token == "\n" or token == "\t":
-                            ...
+                            pass
                         elif token == ".":
                             estado = 68
                         elif token == "$":
@@ -118,7 +118,7 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 75
-                            j -= 1
+                            indice_caractere -= 1
                     case 2: #2 -> [3,4,49,51,75]
                         if token in tk.TOKEN_NUM:
                             estado = 49
@@ -218,7 +218,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 15: #15 -> [16,85]
                         if token in tk.TOKEN_NUM:
                             estado = 16
@@ -247,7 +247,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 19: #19 -> [20,37,85]
                         if token in tk.TOKEN_ALFABETO_MAX:
                             estado = 20
@@ -264,14 +264,14 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 22
-                            j -= 1
+                            indice_caractere -= 1
                     case 21: #21 -> [20,22]
                         if token in tk.TOKEN_ALFABETO_MAX:
                             estado = 20
                             lexema += token
                         else:
                             estado = 22
-                            j -= 1
+                            indice_caractere -= 1
                     case 22: #identificador
                         token_tipo = "TK_ID"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -279,77 +279,77 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 23: #dois pontos
                         token_tipo = "TK_DOIS_PONTOS"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_DOIS_PONTOS"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 24: #fecha parenteses
                         token_tipo = "TK_FEC_PARENTESES"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_FEC_PARENTESES"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 25: #abre parenteses
                         token_tipo = "TK_ABR_PARENTESES"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_ABR_PARENTESES"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 26: #menos
                         token_tipo = "TK_MENOS"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_MENOS"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 27: #negacao
                         token_tipo = "TK_NEGACAO"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_NEGACAO"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 28: #mais
                         token_tipo = "TK_MAIS"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_MAIS"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 29: #multiplicacao
                         token_tipo = "TK_MULTIPLICACAO"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_MULTIPLICACAO"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 30: #divisao
                         token_tipo = "TK_DIVISAO"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_DIVISAO"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 31: #and
                         token_tipo = "TK_AND"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_AND"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 32: #or
                         token_tipo = "TK_OR"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_OR"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 33: #33 -> [34,35,36,62]
                         if token == ">":
                             estado = 34
@@ -359,27 +359,27 @@ if __name__ == "__main__":
                             estado = 62
                         else:
                             estado = 35
-                            j -= 1
+                            indice_caractere -= 1
                     case 34: #diferente
                         token_tipo = "TK_DIFERENTE"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_DIFERENTE"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 35: #menor que
                         token_tipo = "TK_MENOR_QUE"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_MENOR_QUE"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 36: #36 -> [38,39]
                         if token == "=":
                             estado = 39
                         else:
                             estado = 38
-                            j -= 1
+                            indice_caractere -= 1
                         
                     case 37: #37 -> [37,42]
                         if token in tk.TOKEN_ALFABETO_MIN + "_":
@@ -387,28 +387,28 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 42
-                            j -= 1
+                            indice_caractere -= 1
                     case 38: #menor igual
                         token_tipo = "TK_MENOR_IGUAL"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_MENOR_IGUAL"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 39: #atribuicao
                         token_tipo = "TK_ATRIBUICAO"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_ATRIBUICAO"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 40: #igual
                         token_tipo = "TK_IGUAL"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_IGUAL"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 42: #palavras reservadas
                         if lexema == tk.tk_rotina:
                             #estado = 77
@@ -471,7 +471,7 @@ if __name__ == "__main__":
                             msg_erro = f"Erro linha {linha} coluna {coluna}: palavra reservada inválida"
                         
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 43: #43 -> [43,44,85]
                         if token == '"':
                             estado = 44
@@ -485,7 +485,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_CADEIA"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 45: #45 -> [46,47] 
                         if token == "=":
                             estado = 46
@@ -497,14 +497,14 @@ if __name__ == "__main__":
                         tk.tokens["TK_MAIOR_IGUAL"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 47: #maior que
                         token_tipo = "TK_MAIOR_QUE"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                         tk.tokens["TK_MAIOR_QUE"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
-                        j -= 1
+                        indice_caractere -= 1
                     case 48: #48 -> [40,85]
                         if token == "=":
                             estado = 40
@@ -561,7 +561,7 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 56
-                            j -= 1
+                            indice_caractere -= 1
                     case 56: #float
                         token_tipo = "TK_FLOAT"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -569,7 +569,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 57: #float
                         token_tipo = "TK_FLOAT"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -577,7 +577,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 58: #58 -> [59,85]
                         if token == "x":
                             estado = 59
@@ -605,7 +605,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 62: #62 -> [63,85]
                         if token == "<":
                             estado = 63
@@ -654,7 +654,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 75: #int
                         token_tipo = "TK_INT"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -662,7 +662,7 @@ if __name__ == "__main__":
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
                         lexema = ""
-                        j -= 1
+                        indice_caractere -= 1
                     case 76: #76 -> [75,76]
                         if token in tk.TOKEN_NUM:
                             estado = 76
@@ -674,6 +674,6 @@ if __name__ == "__main__":
                         msg_erro = ""  # Limpa a mensagem de erro após escrevê-la
                         estado = 0
                         ...
-                j += 1
+                indice_caractere += 1
         tk_lista.close()
 f.gravar_somatorio()
