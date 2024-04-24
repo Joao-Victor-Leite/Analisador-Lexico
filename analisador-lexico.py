@@ -14,8 +14,13 @@ if __name__ == "__main__":
                    '+-----+-----+--------------------+--------------------+'
                    ) 
     
-    arquivo = "ex1.cic"
+    arquivo = "ex1"
+    arquivo_erros = arquivo + "_erro"
 
+    arquivo = f.gerador_extensao(arquivo, "cic")
+    arquivo_erros = f.gerador_extensao(arquivo_erros, "txt")
+    #fazer a variavel de token anterior
+    
     token_tipo = ""
     lexema = ""
     msg_erro = ""
@@ -30,7 +35,7 @@ if __name__ == "__main__":
     
     arquivo_novo.close()
 
-    with open(arquivo, 'r') as arquivo:
+    with open(arquivo, 'r') as arquivo, open(arquivo_erros, 'w') as arquivo_erro:
         while True:
             token = arquivo.read(1)
             posicao_atual = arquivo.tell()

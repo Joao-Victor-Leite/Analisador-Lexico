@@ -47,3 +47,16 @@ def volta_posicao(arquivo, coluna: int, posicao_atual: int):
     arquivo.seek(posicao_atual - 1)
     coluna -= 1
     return coluna
+
+def gerador_extensao(nome_arquivo, extensao):
+    """
+    Gera o nome completo de um arquivo concatenando o nome do arquivo com a extensão fornecida.
+
+    Args:
+        nome_arquivo (str): O nome do arquivo.
+        extensao (str): A extensão do arquivo.
+
+    Returns:
+        str: O nome completo do arquivo com a extensão.
+    """
+    return nome_arquivo + '.' + extensao
