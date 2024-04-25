@@ -8,38 +8,40 @@ if __name__ == "__main__":
     Os tokens identificados são então escritos em um arquivo de texto.
     """
 
-    tk_lista = open("Lista_de_tokens.txt", 'w',encoding='utf-8')
+    # Abre o arquivo para escrever a lista de tokens
+    tk_lista = open("Lista_de_tokens.txt", 'w', encoding='utf-8')
     tk_lista.write('+-----+-----+--------------------+--------------------+\n' +
                    f'|{"LIN":^5}|{"COL":^5}|{"TOKEN":^20}|{"LEXEMA":^20}|\n' +
                    '+-----+-----+--------------------+--------------------+'
                    ) 
     
-    arquivo = "ex2"
+    # Define os nomes dos arquivos de entrada e de erro
+    arquivo = "ex1"
     arquivo_erros = arquivo + "_erro"
 
+    # Gera as extensões dos arquivos
     arquivo = f.gerador_extensao(arquivo, "cic")
     arquivo_erros = f.gerador_extensao(arquivo_erros, "txt")
 
+    # Inicializa as variáveis
     token_tipo = ""
     lexema = ""
     msg_erro = ""
-
     posicao_atual = 0
     linha = 0
     coluna = 0
     estado = 0
 
+    # Adiciona um marcador de fim de arquivo ao arquivo de entrada
     with open(arquivo, 'a') as arquivo_novo:
         arquivo_novo.write("$")
-    
-    arquivo_novo.close()
 
+    # Abre o arquivo de entrada e o arquivo de erro
     with open(arquivo, 'r') as arquivo, open(arquivo_erros, 'w') as arquivo_erros:
         linhas = arquivo.readlines()
         token_anterior = None
         for indice_linha in range(len(linhas)):
             linha += 1
-            coluna = 0
             linha_atual = linhas[indice_linha]
             arquivo_erros.write(f"[{indice_linha+1}]{linha_atual}")
             indice_caractere = 0
@@ -51,9 +53,6 @@ if __name__ == "__main__":
                 if not token:
                     print("Fim do arquivo")
                     break
-                
-                print(f"Token: {token}, Estado: {estado}, Posicao: {posicao_atual}")
-                print(f"Token: {token}, Linha: {linha}, Coluna: {coluna}\n")
         
                 match estado:
                     case 0: #0 -> [1,19,23,24,25,26,27,28,29,30,31,32,33,43,45,48,58,64,68,85] 
@@ -104,7 +103,7 @@ if __name__ == "__main__":
                             print("Fim do arquivo")
                             break
                         else:
-                            msg_erro = f"Erro léxico na linha {linha}, coluna {coluna}: caractere '{token}' inválido."
+                            msg_erro = f"Erro linha {linha}, coluna {coluna}: caractere '{token}' inválido."
                             estado = 85
                     case 1: #1 -> [2,51,59,75]
                         if token == ".":
@@ -140,77 +139,77 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 4: #4 -> [6,85]
                         if token in tk.TOKEN_NUM:
                             estado = 6
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 5: #5 -> [8,85]
                         if token in tk.TOKEN_NUM:
                             estado = 8
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 6: #6 -> [7,85]
                         if token in tk.TOKEN_NUM:
                             estado = 7
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 7: #7 -> [10,85]
                         if token == "_":
                             estado = 10
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 8: #8 -> [9,85]
                         if token == "/":
                             estado = 9
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 9: #9 -> [11,85]
                         if token in tk.TOKEN_NUM:
                             estado = 11
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 10: #10 -> [15,85]
                         if token in tk.TOKEN_NUM:
                             estado = 15
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 11: #11 -> [12,85]
                         if token in tk.TOKEN_NUM:
                             estado = 12
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 12: #12 -> [13,85]
                         if token in tk.TOKEN_NUM:
                             estado = 13
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 13: #13 -> [14,85]
                         if token in tk.TOKEN_NUM:
                             estado = 14
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 14: #data
                         token_tipo = "TK_DATA"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -225,21 +224,23 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
+                            indice_caractere -= 1
                     case 16: #16 -> [17,85]
                         if token in tk.TOKEN_NUM:
                             estado = 17
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
+                            indice_caractere -= 1
                     case 17: #17 -> [18,85]
                         if token in tk.TOKEN_NUM:
                             estado = 18
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: data mal formatada {lexema}"
                     case 18: #data
                         token_tipo = "TK_DATA"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -258,6 +259,7 @@ if __name__ == "__main__":
                         else:
                             estado = 85
                             msg_erro = f"Erro linha {linha} coluna {coluna}"
+                            indice_caractere -= 1
                     case 20: #20 -> [21,22]
                         if token in tk.TOKEN_ALFABETO_MIN:
                             estado = 21
@@ -380,7 +382,6 @@ if __name__ == "__main__":
                         else:
                             estado = 38
                             indice_caractere -= 1
-                        
                     case 37: #37 -> [37,42]
                         if token in tk.TOKEN_ALFABETO_MIN + "_":
                             estado = 37
@@ -411,56 +412,48 @@ if __name__ == "__main__":
                         indice_caractere -= 1
                     case 42: #palavras reservadas
                         if lexema == tk.tk_rotina:
-                            #estado = 77
                             token_tipo = "TK_ROTINA"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_ROTINA"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_fim_rotina:
-                            #estado = 78
                             token_tipo = "TK_FIM_ROTINA"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_FIM_ROTINA"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_se:
-                            #estado = 79
                             token_tipo = "TK_SE"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_SE"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_senao:
-                            #estado = 80
                             token_tipo = "TK_SENAO"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_SENAO"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_imprima:
-                            #estado = 81
                             token_tipo = "TK_IMPRIMA"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_IMPRIMA"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_leia:
-                            #estado = 82
                             token_tipo = "TK_LEIA"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_LEIA"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_para:
-                            #estado = 83
                             token_tipo = "TK_PARA"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_PARA"] += 1
                             tk.tokens["TK_TOTAL"] += 1
                             estado = 0
                         elif lexema == tk.tk_enquanto:
-                            #estado = 84
                             token_tipo = "TK_ENQUANTO"
                             tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
                             tk.tokens["TK_ENQUANTO"] += 1
@@ -468,7 +461,7 @@ if __name__ == "__main__":
                             estado = 0
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: palavra reservada inválida"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: palavra reservada inválida {lexema}"
                         
                         lexema = ""
                         indice_caractere -= 1
@@ -477,14 +470,18 @@ if __name__ == "__main__":
                             estado = 44
                         elif token == "\n":
                             estado = 85
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: cadeia inválida"
+                            indice_caractere -= 1
                         else:
                             estado = 43
+                            lexema += token
                     case 44: #cadeia
                         token_tipo = "TK_CADEIA"
-                        tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo))
+                        tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
                         tk.tokens["TK_CADEIA"] += 1
                         tk.tokens["TK_TOTAL"] += 1
                         estado = 0
+                        lexema = ""
                         indice_caractere -= 1
                     case 45: #45 -> [46,47] 
                         if token == "=":
@@ -520,6 +517,7 @@ if __name__ == "__main__":
                             lexema += token
                         else: 
                             estado = 75
+                            indice_caractere -= 1
                     case 51: #51 -> [52,53,70]
                         if token in tk.TOKEN_NUM:
                             estado = 52
@@ -584,20 +582,23 @@ if __name__ == "__main__":
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: endereco mal formatado"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: endereco mal formatado {lexema}"
+                            indice_caractere -= 1
                     case 59: #59 -> [60,85]
                         if token in tk.TOKEN_NUM + tk.TOKEN_HEXA:
                             estado = 60
                             lexema += token
                         else:
                             estado = 85
-                            msg_erro = f"Erro linha {linha} coluna {coluna}: endereco mal formatado"
+                            msg_erro = f"Erro linha {linha} coluna {coluna}: endereco mal formatado {lexema}"
+                            indice_caractere -= 1
                     case 60: #60 -> [60,61]
                         if token in tk.TOKEN_NUM + tk.TOKEN_HEXA:
                             estado = 60
                             lexema += token
                         else:
                             estado = 61
+                            indice_caractere -= 1
                     case 61: #endereco
                         token_tipo = "TK_END"
                         tk_lista.write(f.gravar_lexema(linha, coluna, token_tipo, lexema))
@@ -672,7 +673,9 @@ if __name__ == "__main__":
                     case 85:
                         arquivo_erros.write(msg_erro + '\n')
                         msg_erro = ""  # Limpa a mensagem de erro após escrevê-la
+                        lexema = ""
                         estado = 0
+                        indice_caractere -= 1
                         ...
                 indice_caractere += 1
         tk_lista.close()
